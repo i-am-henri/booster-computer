@@ -1,0 +1,1 @@
+docker run -p 5432:5432 --name booster -e POSTGRES_PASSWORD=root -e POSTGRES_USER=root -e POSTGRES_DATBASE=booster -d postgres
