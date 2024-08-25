@@ -15,20 +15,16 @@ datasource db {
 
 // single user
 model User {
-    id        String    @id @default(cuid())
-    createdAt DateTime  @default(now())
-    email     String    @unique
-    password  String
-    Session   Session[]
+    id       String    @id
+    email    String    @unique
+    password String
+    sessions Session[]
 }
 
-// session for lucia auth (https://lucia-auth.com)
 model Session {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    expiresAt DateTime
+    id        String   @id
     userId    String
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    expiresAt DateTime
 
-    @@index([expiresAt])
+    user User @relation(references: [id], fields: [userId], onDelete: Cascade)
 }

@@ -11,6 +11,10 @@
         "db:push": "prisma db push --skip-generate",
         "db:studio": "prisma studio"
     },
-    "dependencies": {},
-    "devDependencies": {}
+    "devDependencies": {
+        "prisma": "5.18.0"
+    },
+    "dependencies": {
+        "@prisma/client": "5.18.0"
+    }
 }
