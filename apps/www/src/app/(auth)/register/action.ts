@@ -43,6 +43,17 @@ export async function register(data: TSignUpType) {
         },
     });
 
+    // create the token to verify the email of the user
+    const token = await db.token.create({
+        data: {
+            id: createId(),
+            userId: user.id,
+            expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7).toISOString(),
+        },
+    });
+
+    if (!token) return "Internal error. Try again later or contact us.";
+
     // all checks done, now the authentication logic
     const session = await lucia.createSession(user.id, {});
     const sessionCookie = lucia.createSessionCookie(session.id);

@@ -14,6 +14,7 @@ export async function login(data: TLoginType) {
         },
     });
     if (!user) return "User not found. Please check your email and your username.";
+    if (!user.verified) return "User not verified. Please check your email provider.";
 
     const compare = await bcrypt.compare(data.password, user.password); // eslint-disable-line
     if (!compare) return "Password is wrong!";
