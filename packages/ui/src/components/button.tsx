@@ -34,7 +34,7 @@ export const ButtonStyles = cva("button", {
 });
 
 
-export const Button: React.FC<React.HTMLAttributes<HTMLButtonElement> & VariantProps<typeof ButtonStyles>> = (
+export const Button: React.FC<React.ComponentProps<'button'> & VariantProps<typeof ButtonStyles>> = (
     ({ variant, children, size, ...props }) => {
         return (
             <button

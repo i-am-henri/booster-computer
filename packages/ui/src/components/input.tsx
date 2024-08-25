@@ -1,0 +1,1 @@
+export const InputStyles = "bg-stone-200 px-3 py-1 outline-none autofill:bg-stone-200 w-full border-none text-black rounded-xl";
