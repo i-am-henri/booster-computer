@@ -15,11 +15,14 @@ datasource db {
 
 // single user
 model User {
-    id       String    @id
-    email    String    @unique
-    username String    @unique
-    password String
-    sessions Session[]
+    id        String    @id
+    email     String    @unique
+    username  String    @unique
+    password  String
+    verified  DateTime?
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    sessions  Session[]
 }
 
 model Session {

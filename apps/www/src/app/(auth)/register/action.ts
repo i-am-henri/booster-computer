@@ -4,8 +4,16 @@ import bcrypt from "bcrypt";
 import { db } from "database";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { TLoginSchema } from "../login/form";
+import { z } from "zod";
 import type { TSignUpType } from "./form";
+
+const TLoginSchema = z
+    .object({
+        email: z.string().email("Email is invalid."),
+        password: z.string().min(8, "Password must be at least 8 characters"),
+        username: z.string().min(3, "Username must be at least 3 characters").max(20, "Username must be at most 20 characters"),
+    })
+
 export async function register(data: TSignUpType) {
     "use server";
 

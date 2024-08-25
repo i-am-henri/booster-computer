@@ -16,9 +16,11 @@ export const TLoginSchema = z
 export type TLoginType = z.infer<typeof TLoginSchema>;
 
 export default function LoginForm({
-    action
+    action,
+    warning
 }: {
-    action: (data: TLoginType) => Promise<string | undefined>
+    action: (data: TLoginType) => Promise<string | undefined>,
+    warning?: string
 }) {
 
     const {
@@ -47,6 +49,7 @@ export default function LoginForm({
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-2 lg:w-[400px]">
             <h2 className="text-xl font-medium">Login</h2>
+            <p className="text-sm text-red-500">{warning}</p>
             <input
                 {...register("username")}
                 type="text"

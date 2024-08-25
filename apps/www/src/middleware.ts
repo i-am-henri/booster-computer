@@ -14,12 +14,13 @@ export async function middleware(request: NextRequest) {
     })
 
     const verifySession = (await verifyRequest.json()) as {
-        valid: boolean
+        valid: boolean,
+        error: string | null
     }
 
     if (!verifySession.valid) {
         // invalid session
-        return NextResponse.redirect(new URL("/auth", request.nextUrl))
+        return NextResponse.redirect(new URL(`/login?error=${verifySession.error}`, request.nextUrl))
     }
 
     // everything seems ok
