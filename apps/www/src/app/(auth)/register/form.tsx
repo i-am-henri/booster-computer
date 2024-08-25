@@ -5,11 +5,10 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Button, InputStyles } from "ui";
 import { z } from "zod";
-import { register as RegisterAction } from "./action";
 
 export const signUpSchema = z
     .object({
-        email: z.string().email().endsWith("@selfmail.app", "Only selfmail adresses are allowed"),
+        email: z.string().email("Email not valid"),
         password: z.string().min(8, "Password must be at least 8 characters"),
         username: z.string().min(3, "Username must be at least 3 characters").max(20, "Username must be at most 20 characters"),
         confirmPassword: z.string().min(8, "Password must be at least 8 characters"),
@@ -18,8 +17,12 @@ export const signUpSchema = z
         path: ["confirmPassword"],
     })
 
-export type TSignUpSchema = z.infer<typeof signUpSchema>;
-export default function Register() {
+export type TSignUpType = z.infer<typeof signUpSchema>;
+export default function RegisterForm({
+    action
+}: {
+    action: (data: TSignUpType) => Promise<string | undefined>
+}) {
 
     const {
         register,
@@ -27,12 +30,12 @@ export default function Register() {
         formState: { errors, isSubmitting },
         reset,
         setError,
-    } = useForm<TSignUpSchema>({
+    } = useForm<TSignUpType>({
         resolver: zodResolver(signUpSchema),
     });
 
-    const onSubmit = async (data: TSignUpSchema) => {
-        const msg = await RegisterAction(data)
+    const onSubmit = async (data: TSignUpType) => {
+        const msg = await action(data)
         if (msg) {
             setError("root", {
                 type: "server",
@@ -47,13 +50,14 @@ export default function Register() {
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-2 lg:w-[400px]">
 
-            <h2 className="text-xl">Register</h2>
+            <h2 className="text-xl font-medium">Register</h2>
 
             <input
                 {...register("username")}
                 type="text"
                 placeholder="Username"
                 className={InputStyles}
+                required
             />
             {errors.username && (
                 <p className="text-red-500">{`${errors.username.message}`}</p>
@@ -63,6 +67,7 @@ export default function Register() {
                 {...register("email")}
                 type="email"
                 placeholder="Email"
+                required
                 className={InputStyles}
             />
             {errors.email && (
@@ -73,6 +78,7 @@ export default function Register() {
                 {...register("password")}
                 type="password"
                 placeholder="Password"
+                required
                 className={InputStyles}
             />
             {errors.password && (
@@ -81,6 +87,7 @@ export default function Register() {
 
             <input
                 {...register("confirmPassword")}
+                required
                 type="password"
                 placeholder="Repeat Password"
                 className={InputStyles}

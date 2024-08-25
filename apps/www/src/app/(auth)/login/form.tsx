@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Button, InputStyles } from "ui";
 import { z } from "zod";
-import { login } from "./action";
 
 export const TLoginSchema = z
     .object({
@@ -16,7 +15,11 @@ export const TLoginSchema = z
 
 export type TLoginType = z.infer<typeof TLoginSchema>;
 
-export default function Login() {
+export default function LoginForm({
+    action
+}: {
+    action: (data: TLoginType) => Promise<string | undefined>
+}) {
 
     const {
         register,
@@ -29,7 +32,7 @@ export default function Login() {
     });
 
     const onSubmit = async (data: TLoginType) => {
-        const msg = await login(data)
+        const msg = await action(data)
         if (msg) {
             setError("root", {
                 type: "server",
@@ -43,7 +46,7 @@ export default function Login() {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-2 lg:w-[400px]">
-            <h2 className="text-xl">Login</h2>
+            <h2 className="text-xl font-medium">Login</h2>
             <input
                 {...register("username")}
                 type="text"
