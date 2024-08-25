@@ -7,14 +7,14 @@ import { Button, InputStyles } from "ui";
 import { z } from "zod";
 import { login } from "./action";
 
-export const signUpSchema = z
+export const TLoginSchema = z
     .object({
         email: z.string().email("Email is invalid."),
         password: z.string().min(8, "Password must be at least 8 characters"),
         username: z.string().min(3, "Username must be at least 3 characters").max(20, "Username must be at most 20 characters"),
     })
 
-export type TSignUpSchema = z.infer<typeof signUpSchema>;
+export type TLoginType = z.infer<typeof TLoginSchema>;
 
 export default function Login() {
 
@@ -24,11 +24,11 @@ export default function Login() {
         formState: { errors, isSubmitting },
         reset,
         setError,
-    } = useForm<TSignUpSchema>({
-        resolver: zodResolver(signUpSchema), // eslint-disable-line
+    } = useForm<TLoginType>({
+        resolver: zodResolver(TLoginSchema), // eslint-disable-line
     });
 
-    const onSubmit = async (data: TSignUpSchema) => {
+    const onSubmit = async (data: TLoginType) => {
         const msg = await login(data)
         if (msg) {
             setError("root", {

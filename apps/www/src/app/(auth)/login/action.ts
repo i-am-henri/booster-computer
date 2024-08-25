@@ -1,8 +1,6 @@
-export async function login(data: {
-    email: string;
-    password: string;
-    username: string;
-}) {
+import type { TLoginType } from "./form";
+
+export async function login(data: TLoginType) {
     "use server";
     return "login"
 }
