@@ -5,7 +5,7 @@ import { NextResponse } from "next/server"
 import { lucia } from "@/auth/lucia"
 import { db } from "database"
 
-const handler = async (req: NextRequest) => {
+export async function GET(req: NextRequest) {
     const sessionId = req.cookies.get(lucia.sessionCookieName)?.value ?? null
 
     // no cookie exists
@@ -32,6 +32,4 @@ const handler = async (req: NextRequest) => {
 
     return NextResponse.json({ valid: true, error: null })
 }
-
-export { handler as GET }
 

@@ -10,7 +10,7 @@ export default function Home() {
       <Header />
       <FadeToTop className="pt-24 lg:w-[700px]">
         <h2 className="text-5xl font-medium ">
-          Bootstrap your next app at lighting speed
+          Bootstrap your next app faster than ever before
         </h2>
         <p className="mt-2 text-[#343434] ">
           Preconfigure your app online, learn which dependency regulates what and share it with your friends online. This is booster.
@@ -37,13 +37,13 @@ export default function Home() {
           In normal nextjs templates you get access to a github repository, like <Link href="https://shipfa.st" className="underline" target="_blank">shipfast</Link>. We take an other approach. You can canfigure your app online, with a nice gui. This allows to explain what you are doing. Later, you can download your template or add it to an existing project. This is possible via the cli or you can do it mannualy with an auto-generated documentation.
         </p>
       </section>
-      <footer className="mt-5 lg:w-[700px] mb-5">
+      <section className="mt-5 lg:w-[700px] mb-5">
         <hr />
         <h2 className="text-3xl font-medium mt-5">
           Start now, boost your app
         </h2>
         <p className="text-[#343434]">A project, done by <Link className="underline" href={"https://henri.gg"} target="_blank">henri</Link>.</p>
-      </footer>
+      </section>
     </div>
   )
 }
