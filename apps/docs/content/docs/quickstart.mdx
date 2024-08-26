@@ -7,3 +7,40 @@ description: Sign up for a new booster account and you can start creating your o
 
 You can sign up for a new booster account and you can start creating your own templates. To do so, you need to have an account on [Booster](https://booster.computer). Afrer you have verified your email, you can create your own template with our editor and create new packages. To download them later, you can install the booster cli. To install an package, run the booster install command and provide the cli with your template id. Every id is unique. When you want to clone a private template, you first need to signup with the sign up command to access the package.
 
+# Our cli
+
+Booster has a modern cli, which you can easily install with your favorite package manager or you can run it by running the following command:
+
+```bash
+npx booster-cli init [id]
+```
+
+This will install the booster cli and you can use it to install packages and create new templates.
+
+# Sign up
+
+To sign up, you can run the following command:
+
+```bash
+npx booster-cli sign-up
+```
+
+This will open a browser window and you can sign up with your email address. After you have verified your email, you can create your own template with our editor and create new packages. To download them later, you can install the booster cli. To install an package, run the booster install command and provide the cli with your template id. Every id is unique. When you want to clone a private template, you first need to signup with the sign up command to access the package.
+
+# Create a new template
+
+To create a new template, you can run the following command:
+
+```bash
+npx booster-cli create [name]
+```
+
+This will create a new template with the name you provided. You can also provide a description and a version. The version is used to identify the template and is optional. If you don't provide a version, it will be set to 1.0.0.
+
+# Install a package
+
+To install a package, you can run the following command:
+
+```bash
+npx booster-cli install [id]
+```

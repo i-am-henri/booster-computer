@@ -1,19 +1,20 @@
-import Link from 'next/link';
+import { getPages } from "@/app/source"
 
-export default function HomePage() {
+export default function Docs() {
   return (
-    <main className="flex h-screen flex-col justify-center text-center">
-      <h1 className="mb-4 text-2xl font-bold">Hello World</h1>
-      <p className="text-fd-muted-foreground">
-        You can open{' '}
-        <Link
-          href="/docs"
-          className="text-fd-foreground font-semibold underline"
-        >
-          /docs
-        </Link>{' '}
-        and see the documentation.
-      </p>
-    </main>
-  );
+    <div className="min-h-screen bg-[#0f0f0f]">
+      <div className="grid grid-cols-3">
+        {
+          getPages().map((file, index) => {
+            return <div className="p-4" key={index}>
+              <h1 className="text-2xl">{file.data.title}</h1>
+              <div className="prose">
+                {file.data.description}
+              </div>
+            </div>
+          })
+        }
+      </div>
+    </div>
+  )
 }
