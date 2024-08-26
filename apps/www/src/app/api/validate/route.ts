@@ -6,14 +6,23 @@ import { lucia } from "@/auth/lucia"
 import { db } from "database"
 
 export async function GET(req: NextRequest) {
-    const sessionId = req.cookies.get(lucia.sessionCookieName)?.value ?? null
+    const sessionCookie = req.headers.get("sessionId")?.valueOf() ?? null
+    console.log(`sessionId: ${sessionCookie}`)
 
-    // no cookie exists
-    if (!sessionId) {
+    if (!sessionCookie) {
         return NextResponse.json({ valid: false, error: "No session cookie found." })
     }
 
+
+    const sessionId = lucia.readSessionCookie(sessionCookie);
+
+    if (!sessionId) {
+        return NextResponse.json({ valid: false, error: "Invalid session cookie." })
+    }
+
     const { session } = await lucia.validateSession(sessionId)
+
+
 
     if (!session) {
         return NextResponse.json({ valid: false, error: "Session not found." })

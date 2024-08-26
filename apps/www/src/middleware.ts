@@ -2,23 +2,24 @@ import { type NextRequest, NextResponse } from 'next/server'
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
-    const origin = request.nextUrl.origin
-    console.log(origin)
+    const sessionId = request.cookies.get("Set-Cookie")?.value
 
-    // this is just an workaround to handle the auth verification
-    // inside the middleware - Since the middleware is "edge only"
-    // we have to call an internal api endpoint to run the lucia magic ;)
-    const verifyRequest = await fetch(`${origin}/api/validate`)
+    const res = await fetch(`${request.nextUrl.origin}/api/validate`, {
+        headers: {
+            "sessionId": sessionId ?? "",
+        }
+    })
 
-    const verifySession = (await verifyRequest.json()) as {
+    const data = await res.json() as {
         valid: boolean,
         error: string | null
+    } | null
+
+    if (!data?.valid) {
+        // invalid session
+        return NextResponse.redirect(new URL(`/login?error=${data?.error}`, request.nextUrl))
     }
 
-    if (!verifySession.valid) {
-        // invalid session
-        return NextResponse.redirect(new URL(`/login?error=${verifySession.error}`, request.nextUrl))
-    }
 
     // everything seems ok
     return NextResponse.next()

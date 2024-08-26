@@ -17,12 +17,15 @@ export async function login(data: TLoginType) {
     if (!user.verified) return "User not verified. Please check your email provider.";
 
     const compare = await bcrypt.compare(data.password, user.password); // eslint-disable-line
+
     if (!compare) return "Password is wrong!";
+
     // all checks done, now the authentication logic
     const session = await lucia.createSession(user.id, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
 
     // create the session
+    console.log(sessionCookie.serialize())
     cookies().set("Set-Cookie", sessionCookie.serialize());
 
     redirect("/dashboard");

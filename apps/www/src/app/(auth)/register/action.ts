@@ -1,8 +1,6 @@
-import { lucia } from "@/auth/lucia";
 import { createId } from "@paralleldrive/cuid2";
 import bcrypt from "bcrypt";
 import { db } from "database";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import type { TSignUpType } from "./form";
@@ -52,13 +50,11 @@ export async function register(data: TSignUpType) {
         },
     });
 
+
     if (!token) return "Internal error. Try again later or contact us.";
 
-    // all checks done, now the authentication logic
-    const session = await lucia.createSession(user.id, {});
-    const sessionCookie = lucia.createSessionCookie(session.id);
+    // TODO: send email verification
 
-    cookies().set("Set-Cookie", sessionCookie.serialize());
 
     redirect("/verify");
 }
