@@ -25,7 +25,7 @@ export default function Home() {
         </div>
       </FadeToTop>
       <section className="lg:w-[800px]">
-        <Image src={"/example.png"} alt="example image of the cli in action" width={800} height={800} className="rounded-xl mt-7" />
+        <Image src={"/example.jpg"} alt="example image of the cli in action" width={800} height={800} className="rounded-xl mt-7" />
       </section>
       <section className="lg:w-[700px] mt-5">
         <hr />
