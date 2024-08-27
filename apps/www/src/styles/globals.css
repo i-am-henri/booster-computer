@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --background: #f9f9f9;
+  --foreground: #222222;
+  --primary: #296dff;
+  --secondary: #8f8f8f;
+}
+
+/* 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #222222;
+    --foreground: #f9f9f9;
+    --primary: #296dff;
+    --secondary: #e1e1e1;
+  }
+} 
+  */
+
+@layer base {
+  p {
+    @apply text-secondary text-base;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply text-foreground;
+  }
+  h1 {
+    @apply text-4xl;
+  }
+  h2 {
+    @apply text-3xl;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+}
