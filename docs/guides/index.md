@@ -20,14 +20,18 @@
 
 <br />
 
-**Guides made by official booster.computer team.**:
+**Guides made by official booster.computer team:**:
 - [How to create a template](./create-template.md)
 - [How to create a package](./create-package.md)
 - [How to create a team](./create-team.md)
 - [Affiliate with booster.computer](./affiliate.md)
 
+<sub>
+<img src="/readme/ping.svg" alt="ping animation" width="15" height="15" />  We are working on these guides.
+</sub>
 
-**Unofficial guides made by community.**:
+**Unofficial guides made by community:**:
+- []()
 
 ---
 <sub>
