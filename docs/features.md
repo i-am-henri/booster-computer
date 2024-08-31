@@ -14,22 +14,6 @@
    • 
    <a href="/LICENSE">📄 License</a> 
 </p>
-<p align="center"> 
-   <h2 align="center">Guides for booster.</h2>
+<p align="center">
+    <h2 align="center">Guides for booster.</h2>
 </p>
-
-<br />
-
-**Guides made by official booster.computer team.**:
-- [How to create a template](./create-template.md)
-- [How to create a package](./create-package.md)
-- [How to create a team](./create-team.md)
-- [Affiliate with booster.computer](./affiliate.md)
-
-
-**Unofficial guides made by community.**:
-
----
-<sub>
-You can learn <a href="./own-guide.md">here how to create your own guide</a>.
-</sub>
