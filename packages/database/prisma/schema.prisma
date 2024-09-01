@@ -15,15 +15,18 @@ datasource db {
 
 // single user
 model User {
-    id        String    @id
-    email     String    @unique
-    username  String    @unique
+    id        String     @id
+    email     String     @unique
+    username  String     @unique
     password  String
     verified  DateTime?
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
-    tokens    Token[]
-    sessions  Session[]
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+    templates Template[]
+    packages  Package[]
+
+    tokens   Token[]
+    sessions Session[]
 }
 
 model Session {
@@ -40,4 +43,84 @@ model Token {
     expires DateTime
 
     user User @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+model Template {
+    id          String    @id
+    name        String
+    description String
+    published   Boolean   @default(false)
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+    userId      String
+    user        User      @relation(references: [id], fields: [userId], onDelete: Cascade)
+    packages    Package[]
+}
+
+model Package {
+    id           String       @id
+    name         String
+    description  String
+    published    Boolean      @default(false)
+    createdAt    DateTime     @default(now())
+    updatedAt    DateTime     @updatedAt
+    userId       String
+    user         User         @relation(references: [id], fields: [userId], onDelete: Cascade)
+    templateId   String
+    template     Template     @relation(references: [id], fields: [templateId], onDelete: Cascade)
+    files        File[]
+    versions     String
+    tags         Tag[]
+    dependencies Dependency[]
+    scripts      Script[]
+
+    @@unique([templateId, name])
+}
+
+model File {
+    id          String   @id
+    name        String
+    description String
+    file        String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    packageId   String
+    package     Package  @relation(references: [id], fields: [packageId], onDelete: Cascade)
+    version     String
+    path        String
+}
+
+model Tag {
+    id          String   @id
+    name        String
+    color       String
+    description String
+    Package     Package? @relation(fields: [packageId], references: [id])
+    packageId   String?
+}
+
+model Dependency {
+    id        String   @id
+    name      String
+    version   String
+    Package   Package? @relation(fields: [packageId], references: [id])
+    packageId String?
+}
+
+// scripts you have to run on the cli
+model Script {
+    id        String   @id
+    name      String
+    script    String
+    Intent    Intent?  @relation(fields: [intentId], references: [id])
+    intentId  String
+    Package   Package? @relation(fields: [packageId], references: [id])
+    packageId String?
+}
+
+model Intent {
+    id     String   @id
+    name   String
+    rights String
+    Script Script[]
 }
